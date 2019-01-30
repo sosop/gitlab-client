@@ -9,18 +9,18 @@ var GitInfo *gitlabInfo = nil
 
 type gitlabInfo struct {
 	client 			*http.Client
-	Address 		string
+	Address 		string			`json: "address"`
 }
 
 type GitLabClient struct {
 	*gitlabInfo
-	PrivateToken 	string
-	Username		string
+	PrivateToken 	string	`json: "privateToken"`
+	Username		string	`json: "username"`
 	Password		string
-	Branch			string
-	WebURL			string
-	ProjectName		string
-	ProjectID 		int
+	Branch			string	`json: "branch"`
+	WebURL			string	`json: "webURL"`
+	ProjectName		string	`json: "projectName"`
+	ProjectID 		int		`json: "projectID"`
 }
 
 
