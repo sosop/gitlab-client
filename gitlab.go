@@ -14,15 +14,22 @@ type gitlabInfo struct {
 
 type GitLabClient struct {
 	*gitlabInfo
-	PrivateToken 	string	`json: "privateToken"`
-	Username		string	`json: "username"`
+	PrivateToken 	string			`json: "privateToken"`
+	Username		string			`json: "username"`
 	Password		string
+	Projects		[]ProjectInfo	`json: "projects"`
+}
+
+type ProjectInfo struct {
 	Branch			string	`json: "branch"`
 	WebURL			string	`json: "webURL"`
 	ProjectName		string	`json: "projectName"`
 	ProjectID 		int		`json: "projectID"`
 }
 
+func NewProject(webURL, projectName string, projectID int) ProjectInfo {
+	return ProjectInfo{WebURL: webURL, ProjectName: projectName, ProjectID: projectID}
+}
 
 func NewGitlabInfo(client *http.Client, address string) *gitlabInfo {
 	if client == nil {
