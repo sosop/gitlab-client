@@ -9,7 +9,3 @@ func (gitlab *GitLabClient) ListOwnProject() ([]byte, error) {
 	}
 	return data, nil
 }
-
-func (gitlab *GitLabClient) SetProject(projectID int, webURL, projectName string) {
-	gitlab.Projects = append(gitlab.Projects, NewProject(webURL, projectName, projectID))
-}
