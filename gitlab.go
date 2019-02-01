@@ -9,20 +9,20 @@ var GitInfo *gitlabInfo = nil
 
 type gitlabInfo struct {
 	client 			*http.Client
-	Address 		string			`json: "address"`
+	Address 		string			`json:"address"`
 }
 
 type GitLabClient struct {
 	*gitlabInfo
-	PrivateToken 	string			`json: "privateToken"`
-	Projects		[]ProjectInfo	`json: "projects"`
+	PrivateToken 	string			`json:"privateToken"`
+	Projects		[]ProjectInfo	`json:"projects"`
 }
 
 type ProjectInfo struct {
-	Branch			string	`json: "branch"`
-	GitAddr			string	`json: "gitAddr"`
-	ProjectName		string	`json: "projectName"`
-	ProjectID 		int		`json: "projectID"`
+	Branch			string	`json:"branch"`
+	GitAddr			string	`json:"gitAddr"`
+	ProjectName		string	`json:"projectName"`
+	ProjectID 		int		`json:"projectID"`
 }
 
 func NewProject(gitAddr, projectName string, projectID int) ProjectInfo {
@@ -37,11 +37,11 @@ func NewGitlabInfo(client *http.Client, address string) *gitlabInfo {
 }
 
 
-func NewGitLabClient(privateToken, username, password string) *GitLabClient {
+func NewGitLabClient(privateToken string) *GitLabClient {
 	if GitInfo ==  nil {
 		return nil
 	}
-	return &GitLabClient{gitlabInfo: GitInfo, PrivateToken: privateToken, Username: username, Password: password}
+	return &GitLabClient{gitlabInfo: GitInfo, PrivateToken: privateToken}
 }
 
 func (gitlab *GitLabClient) get(uri string, headers map[string]string) ([]byte, error) {
