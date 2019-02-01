@@ -15,8 +15,6 @@ type gitlabInfo struct {
 type GitLabClient struct {
 	*gitlabInfo
 	PrivateToken 	string			`json: "privateToken"`
-	Username		string			`json: "username"`
-	Password		string
 	Projects		[]ProjectInfo	`json: "projects"`
 }
 
