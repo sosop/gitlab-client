@@ -20,13 +20,13 @@ type GitLabClient struct {
 
 type ProjectInfo struct {
 	Branch			string	`json: "branch"`
-	WebURL			string	`json: "webURL"`
+	GitAddr			string	`json: "gitAddr"`
 	ProjectName		string	`json: "projectName"`
 	ProjectID 		int		`json: "projectID"`
 }
 
-func NewProject(webURL, projectName string, projectID int) ProjectInfo {
-	return ProjectInfo{WebURL: webURL, ProjectName: projectName, ProjectID: projectID}
+func NewProject(gitAddr, projectName string, projectID int) ProjectInfo {
+	return ProjectInfo{GitAddr: gitAddr, ProjectName: projectName, ProjectID: projectID}
 }
 
 func NewGitlabInfo(client *http.Client, address string) *gitlabInfo {
