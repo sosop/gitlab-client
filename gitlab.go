@@ -12,7 +12,7 @@ type gitlabInfo struct {
 	Address 		string			`json:"address"`
 }
 
-type GitLabClient struct {
+type GitlabClient struct {
 	*gitlabInfo
 	PrivateToken 	string			`json:"privateToken"`
 }
@@ -36,14 +36,14 @@ func NewGitlabInfo(client *http.Client, address string) *gitlabInfo {
 }
 
 
-func NewGitLabClient(privateToken string) *GitLabClient {
+func NewGitlabClient(privateToken string) *GitlabClient {
 	if GitInfo ==  nil {
 		return nil
 	}
-	return &GitLabClient{gitlabInfo: GitInfo, PrivateToken: privateToken}
+	return &GitlabClient{gitlabInfo: GitInfo, PrivateToken: privateToken}
 }
 
-func (gitlab *GitLabClient) get(uri string, headers map[string]string) ([]byte, error) {
+func (gitlab *GitlabClient) get(uri string, headers map[string]string) ([]byte, error) {
 	req, err := http.NewRequest("GET", gitlab.Address + uri, nil)
 	if err != nil {
 		return nil, err

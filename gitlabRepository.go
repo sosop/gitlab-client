@@ -5,6 +5,6 @@ import (
 )
 
 // 依赖客户端git
-func (gitlab *GitLabClient) GetRepo(project ProjectInfo) ([]byte, error) {
+func (gitlab *GitlabClient) GetRepo(project ProjectInfo) ([]byte, error) {
 	return exec.Command("git clone -b " + project.Branch + " " + project.GitAddr + " /tmp/" + project.ProjectName).Output()
 }
