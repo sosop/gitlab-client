@@ -7,6 +7,8 @@ import (
 
 var GitInfo *gitlabInfo = nil
 
+var GitlabClients = make(map[string]*GitlabClient, 1024)
+
 type gitlabInfo struct {
 	client 			*http.Client
 	Address 		string			`json:"address"`
@@ -33,6 +35,10 @@ func NewGitlabInfo(client *http.Client, address string) *gitlabInfo {
 		client = http.DefaultClient
 	}
 	return &gitlabInfo{client: client, Address: address}
+}
+
+func PushGitlabClient(privateToken string) {
+	GitlabClients[privateToken] = NewGitlabClient(privateToken)
 }
 
 
