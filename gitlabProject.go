@@ -18,22 +18,6 @@ func (gitlab *GitlabClient) ListProjects() ([]ProjectInfo, error) {
 	return generateProject(data)
 }
 
-// 获取所属及可访问项目
-func (gitlab *GitlabClient) ListAllProjects() ([]ProjectInfo, error) {
-	own, err := gitlab.ListOwnProjects()
-	if err != nil {
-		return nil, err
-	}
-	access, err := gitlab.ListProjects()
-	if err != nil {
-		return nil, err
-	}
-	all := make([]ProjectInfo, 0, 1024)
-	all = append(all, own...)
-	all = append(all, access...)
-	return all, nil
-}
-
 func generateProject(data []byte) ([]ProjectInfo, error) {
 	projs := make([]ProjectInfo, 0, 1024)
 	err := json.Unmarshal(data, &projs)
