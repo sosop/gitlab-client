@@ -3,11 +3,14 @@ package gitlabClient
 import (
 	"net/http"
 	"io/ioutil"
+	"github.com/json-iterator/go"
 )
 
-var GitInfo *gitlabInfo = nil
-
-var GitlabClients = make(map[string]*GitlabClient, 1024)
+var (
+	GitInfo *gitlabInfo = nil
+	GitlabClients = make(map[string]*GitlabClient, 1024)
+	json = jsoniter.ConfigCompatibleWithStandardLibrary
+)
 
 type gitlabInfo struct {
 	client 			*http.Client
