@@ -24,8 +24,10 @@ func generateProject(data []byte, privateToken string) ([]ProjectInfo, error) {
 	if err != nil {
 		return nil, err
 	}
+	realProjes := make([]ProjectInfo, 0, len(projs))
 	for _, p := range projs {
 		p.PrivateToken = privateToken
+		realProjes = append(realProjes, p)
 	}
-	return projs, nil
+	return realProjes, nil
 }
