@@ -6,7 +6,7 @@ func (gitlab *GitlabClient) ListOwnProjects() ([]ProjectInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	return generateProject(data)
+	return generateProject(data, gitlab.PrivateToken)
 }
 
 // 获取可访问项目
@@ -15,14 +15,17 @@ func (gitlab *GitlabClient) ListProjects() ([]ProjectInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	return generateProject(data)
+	return generateProject(data, gitlab.PrivateToken)
 }
 
-func generateProject(data []byte) ([]ProjectInfo, error) {
+func generateProject(data []byte, privateToken string) ([]ProjectInfo, error) {
 	projs := make([]ProjectInfo, 0, 1024)
 	err := json.Unmarshal(data, &projs)
 	if err != nil {
 		return nil, err
+	}
+	for _, p := range projs {
+		p.PrivateToken = privateToken
 	}
 	return projs, nil
 }
