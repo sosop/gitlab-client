@@ -28,6 +28,7 @@ type ProjectInfo struct {
 	ProjectName		string	`json:"name"`
 	ProjectID 		int		`json:"id"`
 	FullName		string	`json:"path_with_namespace"`
+	GitlabClient
 }
 
 func NewProject(gitAddr, projectName string, projectID int) ProjectInfo {
