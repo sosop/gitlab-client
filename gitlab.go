@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"io/ioutil"
 	"github.com/json-iterator/go"
+	"net/url"
+	"strings"
 )
 
 var (
@@ -55,10 +57,28 @@ func NewGitlabClient(privateToken string) *GitlabClient {
 }
 
 func (gitlab *GitlabClient) get(uri string, headers map[string]string) ([]byte, error) {
-	req, err := http.NewRequest("GET", gitlab.Address + uri, nil)
+	return request(gitlab, "GET", uri, headers, nil)
+}
+
+func (gitlab *GitlabClient) post(uri string, headers map[string]string, params url.Values) ([]byte, error) {
+	return request(gitlab, "POST", uri, headers, params)
+}
+
+func request(gitlab *GitlabClient,  method, uri string, headers map[string]string, params url.Values) ([]byte, error) {
+
+	var req *http.Request
+	var err error
+
+	if strings.ToUpper(method) == "POST" {
+		req, err = http.NewRequest(method, gitlab.Address + uri, strings.NewReader(params.Encode()))
+	} else {
+		req, err = http.NewRequest(method, gitlab.Address + uri, nil)
+	}
+
 	if err != nil {
 		return nil, err
 	}
+
 	// 添加请求头部信息
 	if headers != nil && len(headers) > 0 {
 		for k, v := range headers {

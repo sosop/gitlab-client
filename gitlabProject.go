@@ -1,5 +1,9 @@
 package gitlabClient
 
+import (
+	"net/url"
+)
+
 // 获取所属项目
 func (gitlab *GitlabClient) ListOwnProjects() ([]ProjectInfo, error) {
 	data, err := gitlab.get("/api/v3/projects/owned", nil)
@@ -30,4 +34,12 @@ func generateProject(data []byte, privateToken string) ([]ProjectInfo, error) {
 		realProjes = append(realProjes, p)
 	}
 	return realProjes, nil
+}
+
+func (gitlab *GitlabClient) CreateHook(projectId, callback string) ([]byte, error) {
+	params := url.Values{}
+	params.Set("push_events", "true")
+	params.Set("url", callback)
+	params.Set("id", projectId)
+	return gitlab.post("/api/v3/projects/"+ projectId + "/hooks", nil, params)
 }

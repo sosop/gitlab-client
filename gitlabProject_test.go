@@ -17,3 +17,11 @@ func TestGitLabClient_ListProjects(t *testing.T) {
 	}
 	t.Log(projs)
 }
+
+func TestGitLabClient_CreateHook(t *testing.T) {
+	data, err := gitlab.CreateHook("413", "http://ok")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(string(data))
+}
